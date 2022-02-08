@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "tidypandas"
+version = "0.1.0"
+description = "The tidypandas package is a conglomeration of useful helper functinos for data wrangling in Python, especially with pandas."
+authors = ["Alexander Butz <alex.butz@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.4.0"
+numpy = "^1.22.2"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.17.0"
+darglint = "^1.8.1"
+flake8 = "^4.0.1"
+flake8-docstrings = "^1.6.0"
+isort = "^5.10.1"
+mypy = "^0.931"
+pep8-naming = "^0.12.1"
+pydocstyle = "^6.1.1"
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
