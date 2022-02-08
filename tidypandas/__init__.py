@@ -1,6 +1,15 @@
 # flake8: noqa
+import importlib
 
-# pandas
+# hard dependencies
+hard_dependencies = ["pandas", "pandas_flavor"]
+
+for dep in hard_dependencies:
+    try:
+        importlib.import_module(dep)
+    except ImportError:
+        print(f"Could not import {dep}")
+
 try:
     import pandas as pd
 except ImportError:

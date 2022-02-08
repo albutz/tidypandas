@@ -3,12 +3,14 @@
 from typing import List
 
 import pandas as pd
+import pandas_flavor as pf
 
 
 class GroupsNotFoundError(Exception):
     """A custom exception that is raised if the groups provided to add_count are not found."""
 
 
+@pf.register_dataframe_method
 def add_count(df: pd.DataFrame, group_cols: List, count_name: str = None) -> pd.DataFrame:
     """Add group counts.
 
