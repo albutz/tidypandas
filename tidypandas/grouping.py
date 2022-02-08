@@ -26,28 +26,38 @@ def add_count(df: pd.DataFrame, group_cols: List, count_name: str = None) -> pd.
         A pandas DataFrame with group counts.
     """
     # Copy the input DataFrame
-    tbl = df.copy()
+    df_aug = df.copy()
 
     # Check if all groups are included and raise a GroupsNotFoundError if not
-    is_group_included = [group in tbl.columns for group in group_cols]
+    is_group_included = [group in df_aug.columns for group in group_cols]
     if not all(is_group_included):
         # Get column names that are not included
         missing_cols = [
             group for (group, is_included) in zip(group_cols, is_group_included) if not is_included
         ]
+
+        # Use the name attribute if set
+        try:
+            # Need to use df as pd.DataFrame.copy() does not set the name attribute
+            df_name = df.name
+        except AttributeError:
+            df_name = "the DataFrame"
+
+        # Pluralize error message if necessary
         if len(missing_cols) == 1:
-            raise GroupsNotFoundError(f"Column {missing_cols[0]} is not included in the DataFrame.")
+            raise GroupsNotFoundError(f"Column {missing_cols[0]} is not included in {df_name}.")
         else:
-            missing_cols_fmt = ", ".join(missing_cols)
-            raise GroupsNotFoundError(
-                f"Columns {missing_cols_fmt} are not included in the DataFrame."
-            )
+            if len(missing_cols) == 2:
+                missing_cols_fmt = " and ".join(missing_cols)
+            else:
+                missing_cols_fmt = ", ".join(missing_cols[:-1]) + " and " + missing_cols[-1]
+            raise GroupsNotFoundError(f"Columns {missing_cols_fmt} are not included in {df_name}.")
 
     if count_name is None:
         count_name = "count_" + "_X_".join(group_cols)
 
     # Get any column name
-    any_column = tbl.columns[0]
-    tbl[count_name] = tbl.groupby(group_cols)[any_column].transform("count")
+    any_column = df_aug.columns[0]
+    df_aug[count_name] = df_aug.groupby(group_cols)[any_column].transform("count")
 
-    return tbl
+    return df_aug
