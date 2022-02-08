@@ -10,10 +10,8 @@ for dep in hard_dependencies:
     except ImportError:
         print(f"Could not import {dep}")
 
-try:
-    import pandas as pd
-except ImportError:
-    print("Could not import pandas.")
+# clean up
+del hard_dependencies, dep, importlib
 
 # grouping
 from tidypandas.grouping import add_count
