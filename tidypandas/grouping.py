@@ -53,8 +53,10 @@ def add_count(df: pd.DataFrame, group_cols: List, count_name: str = None) -> pd.
                 missing_cols_fmt = ", ".join(missing_cols[:-1]) + " and " + missing_cols[-1]
             raise GroupsNotFoundError(f"Columns {missing_cols_fmt} are not included in {df_name}.")
 
+    # Set name of new column if not specified
     if count_name is None:
-        count_name = "count_" + "_X_".join(group_cols)
+        sep = "_X_" if len(group_cols) > 1 else ""
+        count_name = "count_" + sep.join(group_cols)
 
     # Get any column name
     any_column = df_aug.columns[0]
