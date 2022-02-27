@@ -32,7 +32,7 @@ def test_add_count_multiple(example_df: pd.DataFrame) -> None:
         {
             "x_1": ["a", "b", "a", "a", "c", "b", "a", "a", "b", "a"],
             "x_2": [True, False, False, True, True, True, False, False, True, True],
-            "count_x_1_X_x_2": [3, 1, 3, 3, 1, 2, 3, 3, 2, 3],
+            "count_x_1_x_2": [3, 1, 3, 3, 1, 2, 3, 3, 2, 3],
         }
     )
     pd.testing.assert_frame_equal(add_count(example_df, ["x_1", "x_2"]), df_expected)

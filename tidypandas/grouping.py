@@ -55,7 +55,7 @@ def add_count(df: pd.DataFrame, group_cols: List, count_name: str = None) -> pd.
 
     # Set name of new column if not specified
     if count_name is None:
-        sep = "_X_" if len(group_cols) > 1 else ""
+        sep = "_" if len(group_cols) > 1 else ""
         count_name = "count_" + sep.join(group_cols)
 
     # Get any column name
