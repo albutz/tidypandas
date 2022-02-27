@@ -36,22 +36,15 @@ def add_count(df: pd.DataFrame, group_cols: List, count_name: str = None) -> pd.
             group for (group, is_included) in zip(group_cols, is_group_included) if not is_included
         ]
 
-        # Use the name attribute if set
-        try:
-            # Need to use df as pd.DataFrame.copy() does not set the name attribute
-            df_name = df.name
-        except AttributeError:
-            df_name = "the DataFrame"
-
         # Pluralize error message if necessary
         if len(missing_cols) == 1:
-            raise GroupsNotFoundError(f"Column {missing_cols[0]} is not included in {df_name}.")
+            raise GroupsNotFoundError(f"Column {missing_cols[0]} is not included.")
         else:
             if len(missing_cols) == 2:
                 missing_cols_fmt = " and ".join(missing_cols)
             else:
                 missing_cols_fmt = ", ".join(missing_cols[:-1]) + " and " + missing_cols[-1]
-            raise GroupsNotFoundError(f"Columns {missing_cols_fmt} are not included in {df_name}.")
+            raise GroupsNotFoundError(f"Columns {missing_cols_fmt} are not included.")
 
     # Set name of new column if not specified
     if count_name is None:
