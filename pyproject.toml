@@ -5,7 +5,7 @@ description = "The tidypandas package is a conglomeration of useful helper funct
 authors = ["Alexander Butz <alex.butz@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 pandas = "^1.4.0"
 numpy = "^1.22.2"
 pandas-flavor = "^0.2.0"
@@ -23,6 +23,7 @@ black = "^22.1.0"
 pandas-flavor = "^0.2.0"
 pytest = "^7.0.0"
 ipykernel = "^6.9.1"
+tox = "^3.24.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
