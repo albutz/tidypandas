@@ -4,6 +4,7 @@ from typing import List
 
 import pandas as pd
 import pandas_flavor as pf
+from utils import filter_list
 
 
 class GroupsNotFoundError(Exception):
@@ -31,10 +32,7 @@ def add_count(df: pd.DataFrame, group_cols: List, count_name: str = None) -> pd.
     # Check if all groups are included and raise a GroupsNotFoundError if not
     is_group_included = [group in df_aug.columns for group in group_cols]
     if not all(is_group_included):
-        # Get column names that are not included
-        missing_cols = [
-            group for (group, is_included) in zip(group_cols, is_group_included) if not is_included
-        ]
+        missing_cols = filter_list(group_cols, is_group_included, negate=True)
 
         # Pluralize error message if necessary
         if len(missing_cols) == 1:
