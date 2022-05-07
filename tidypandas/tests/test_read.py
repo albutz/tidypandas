@@ -27,3 +27,11 @@ def test_locate_pattern_no_match(tmp_path: Path, sample_text: str) -> None:
     tmp_file.write_text(sample_text)
 
     assert locate_pattern(tmp_file, "^$") == -1
+
+
+def test_locate_pattern_raw_string(sample_text: str) -> None:
+    assert locate_pattern(sample_text, "[+0][0-9]{8}") == 2
+
+
+def test_locate_pattern_raw_string_no_match(sample_text: str) -> None:
+    assert locate_pattern(sample_text, "^$") == -1
