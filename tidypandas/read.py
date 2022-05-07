@@ -1,8 +1,8 @@
-"""Read a subset of a csv file with pattern-based starting point."""
+"""Read a subset of a delimited file with pattern-based starting point."""
 
 import re
 from pathlib import Path
-from typing import Union
+from typing import List, TextIO, Union
 
 
 def locate_pattern(file: Union[str, Path], pattern: str) -> int:
@@ -15,9 +15,18 @@ def locate_pattern(file: Union[str, Path], pattern: str) -> int:
     Returns:
         Index of the starting point. In case of no match -1 is returned.
     """
-    with open(file) as f:
-        for index, line in enumerate(f):
+
+    def get_index(lines: Union[List, TextIO]) -> int:
+        for index, line in enumerate(lines):
             if re.search(pattern, line) is not None:
                 return index
 
-    return -1
+        return -1
+
+    # Case when file is a raw string
+    if isinstance(file, str) and len(file) > 1:
+        return get_index(file.splitlines())
+
+    # Case when file is a path
+    with open(file) as f:
+        return get_index(f)
