@@ -15,3 +15,6 @@ del hard_dependencies, dep, importlib
 
 # grouping
 from tidypandas.grouping import add_count
+
+# read
+from tidypandas.read import read_sub
